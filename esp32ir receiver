@@ -1,0 +1,27 @@
+#include <IRremote.h>
+ 
+int RECV_PIN = 15;
+ 
+IRrecv irrecv(RECV_PIN);
+ 
+decode_results results;
+ 
+void setup()
+{
+Serial.begin(9600);
+irrecv.enableIRIn(); // Start the receiver
+pinMode(02,OUTPUT);
+}
+ 
+void loop()
+{
+if (irrecv.decode(&results))
+{
+Serial.println(results.value, HEX);
+irrecv.resume();
+  digitalWrite(2,HIGH);
+  delay(10);
+  digitalWrite(2,LOW);
+
+}
+}
